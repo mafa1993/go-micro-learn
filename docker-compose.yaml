@@ -1,12 +1,33 @@
-version: "1.25"
+version: "3"
 services: # 服务
 # 指定需要用的 容器
   go-tcp-server: # 服务名， 不是容器名
     image: "golang:alpine" # 指定需要使用的镜像
-    container_name: "golang" # 容器名
+    container_name: "golang-server" # 容器名
     ports: # 暴露的端口
       - "8300:8300"
     volumes:
-      - /go/src/server:/home/www/go-micro-learn/go/src
+      - /go/src/server:/home/www/go-micro-learn/go/src/client
     working_dir: /go/src
     command: top
+    networks: 
+      go: # 使用的网络名称，下方networks里面配置的
+        ipv4_address: 172.100.99.11 #docker network 创建桥接网卡，会占用.1这个ip
+  go-tcp-client: # 服务名， 不是容器名
+    image: "golang:alpine" # 指定需要使用的镜像
+    container_name: "golang-client" # 容器名
+    ports: # 暴露的端口
+      - "8301:8301"
+    volumes:
+      - /go/src/client:/home/www/go-micro-learn/go/src/client
+    working_dir: /go/src
+    command: top
+    networks: 
+      go: # 使用的网络名称，下方networks里面配置的
+        ipv4_address: 172.100.99.12
+networks: # 创建网络  相当于 docker network create xxx_go --subnet="172.100.100.0/24"
+  go: # 网络名称，非docker network ls的名字 会根据文件所在文件夹名字——网络名生成一个名字
+    driver: bridge
+    ipam: # 详细iP配置
+      config:
+        - subnet: "172.100.99.0/24"
