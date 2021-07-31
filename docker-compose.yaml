@@ -1,0 +1,12 @@
+version: "1.25"
+services: # 服务
+# 指定需要用的 容器
+  go-tcp-server: # 服务名， 不是容器名
+    image: "golang:alpine" # 指定需要使用的镜像
+    container_name: "golang" # 容器名
+    ports: # 暴露的端口
+      - "8300:8300"
+    volumes:
+      - /go/src/server:/home/www/go-micro-learn/go/src
+    working_dir: /go/src
+    command: top
