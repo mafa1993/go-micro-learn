@@ -7,7 +7,7 @@ services: # 服务
     ports: # 暴露的端口
       - "8300:8300"
     volumes:
-      - /go/src/server:/home/www/go-micro-learn/go/src/client
+      - /go/src/server:/home/www/go-micro-learn/go/src/server
     working_dir: /go/src
     command: top
     networks: 
@@ -31,3 +31,6 @@ networks: # 创建网络  相当于 docker network create xxx_go --subnet="172.1
     ipam: # 详细iP配置
       config:
         - subnet: "172.100.99.0/24"
+  # go:
+  #   external:
+  #     name: go # 使用docker network ls中为go的网络
