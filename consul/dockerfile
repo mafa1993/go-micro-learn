@@ -1,0 +1,17 @@
+FROM alpine:3.11
+
+# COPY - dockerfile的 命令 复制本地的consul文件。到镜像中
+COPY ./consul_1.4.4_linux_amd64.zip /consul_1.4.4_linux_amd64.zip
+
+# 这是 alpine的软件安装命令
+RUN apk add unzip && \
+  unzip consul_1.4.4_linux_amd64.zip && \
+  rm -rf /consul_1.4.4_linux_amd64.zip && \
+  mv consul /usr/local/bin
+
+#预开放端口
+EXPOSE 8300
+EXPOSE 8301 8301/udp 8302 8302/udp
+EXPOSE 8500 8600 8600/udp
+
+# consul agent  -server  -bootstrap-expect 1 -data-dir /tmp/consul -node=ali -bind=0.0.0.0  -ui  -client=0.0.0.0
