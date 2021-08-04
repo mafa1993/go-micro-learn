@@ -1,0 +1,66 @@
+version: "3"
+services:
+  consul_server_21:
+    image: consul
+    ports:
+      - "8521:8500"
+    networks:
+      go:
+        ipv4_address: 172.100.99.21
+    container_name: consul_server_21
+    # 如果-bind 设置为0.0.0.0 会报错 ipv4 not found  可以给每个节点都增加ui参数，这里只给主节点增加了ui界面，客户端也可以增加-ui参数
+    command: consul agent -server -bootstrap-expect 3 -data-dir /tmp/consul -node=consul_server_21 -bind=172.100.99.21 -ui -client=0.0.0.0
+  consul_server_22:
+    image: consul
+    ports:
+      - "8522:8500"
+    networks:
+      go:
+        ipv4_address: 172.100.99.22
+    container_name: consul_server_22
+    # 如果-join 设置初始化时加入的节点
+    command: consul agent -server -bootstrap-expect 3 -data-dir /tmp/consul -node=consul_server_22 -bind=172.100.99.22 -client=0.0.0.0 -join 172.100.99.21
+    depends_on:
+      - consul_server_21
+  consul_server_23:
+    image: consul
+    ports:
+      - "8523:8500"
+    networks:
+      go:
+        ipv4_address: 172.100.99.23
+    container_name: consul_server_23
+    # 如果-bind 不设置为0.0.0.0 会报错 ipv4 not found
+    command: consul agent -server -bootstrap-expect 3 -data-dir /tmp/consul -node=consul_server_23 -bind=172.100.99.23 -client=0.0.0.0 -join 172.100.99.21
+    depends_on:
+      - consul_server_21
+
+  # 客户端， 可以不适用客户端，客户端可以帮我们做一些负载均衡，健康检查等, 客户端不存储数据只做代理
+  consul_client_31:
+    image: consul
+    ports:
+      - "8531:8500"
+    networks:
+      go:
+        ipv4_address: 172.100.99.31
+    container_name: consul_client_31
+    # 客户端 不加 -server 参数  也不能加-bootstrap-expect参数 并且-client 地址绑定为自己的ip 
+    command: consul agent -data-dir /tmp/consul -node=consul_client_31 -bind=172.100.99.31 -client=172.100.99.31 -join 172.100.99.21
+    depends_on:
+      - consul_server_21
+  consul_client_32:
+    image: consul
+    ports:
+      - "8532:8500"
+    networks:
+      go:
+        ipv4_address: 172.100.99.32
+    container_name: consul_client_32
+    # 客户端 不加 -server 参数  并且-client 地址绑定为自己的ip
+    command: consul agent -data-dir /tmp/consul -node=consul_client_32 -bind=172.100.99.32 -client=172.100.99.32 -join 172.100.99.21  
+    depends_on:
+      - consul_server_21
+networks:
+  go:
+    external:
+      name: go-micro-learn_go
