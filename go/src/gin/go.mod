@@ -1,9 +1,9 @@
-module micro_learn
+module mirco_learn
 
 go 1.15
 
 require (
-	github.com/gin-gonic/gin v1.7.7 // indirect
+	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/validator/v10 v10.10.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
