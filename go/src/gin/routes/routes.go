@@ -1,13 +1,14 @@
 package routes
 
 import (
-	"micro_learn/middleware"
+	"mirco_learn/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Router func(*gin.Engine)
 
+// 使用一个全局变量， 其他部分在注册路由前，使用Register方法，把路由注册进来，然后再调用initRoute 进行路由加载
 var routers = []Router{}
 
 func InitRoutes() *gin.Engine {
@@ -23,6 +24,6 @@ func InitRoutes() *gin.Engine {
 }
 
 // 注册route
-func Register(routes ...Router) {
+func RegisterRoute(routes ...Router) {
 	routers = append(routers, routes...)
 }

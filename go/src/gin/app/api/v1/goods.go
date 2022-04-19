@@ -7,6 +7,6 @@ import (
 )
 
 func GetGoods(c *gin.Context) {
-	c.JSON(http.StatusOk, "ok")
+	c.JSON(http.StatusOK, "成功")
 
 }
