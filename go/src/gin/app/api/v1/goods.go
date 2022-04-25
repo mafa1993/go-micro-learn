@@ -14,6 +14,7 @@ func GetGoods(c *gin.Context) {
 	goodsInfo := services.GetGoodsDetail(map[string]interface{}{
 		"goods_id": goodsId,
 	})
+
 	c.JSON(http.StatusOK, goodsInfo)
 
 }
