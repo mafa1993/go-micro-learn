@@ -16,6 +16,7 @@ func TestGetGoods(t *testing.T) {
 		"goods_id": 1,
 	}
 	var goods Goods
-	DB().Debug().Where(where).Find(&goods)
+	// unscoped 关闭软删除
+	DB().Debug().Where(where).Unscoped().Find(&goods)
 	fmt.Println("goods", goods)
 }

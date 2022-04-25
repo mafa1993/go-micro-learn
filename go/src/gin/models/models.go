@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	dsn string = "root:''@tcp(39.106.6.99:3306)/shop?charset=utf8mb4" // 数据库配置 root账号  0000密码  shop数据库  utf8mb4编码
+	dsn string = "root:1234qwer@tcp(39.106.6.99:3306)/shop?charset=utf8mb4" // 数据库配置 root账号  0000密码  shop数据库  utf8mb4编码
 )
 
 //实现orm
