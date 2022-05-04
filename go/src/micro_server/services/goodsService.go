@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"micro_server/models"
 	proto "micro_server/proto"
 )
@@ -28,6 +29,8 @@ func (r *RequestGoods) GetGoodsDetails(ctx context.Context, req *proto.RequestGo
 	res.Code = 200
 	res.Msg = "成功"
 	res.Data = json_rlt
+
+	fmt.Println("data", res)
 
 	return nil
 }
