@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package goods;
+
+option go_package = "./;goods";
+
+message ResponseGoods{
+    int32 code = 1;
+    string msg = 2;
+    bytes data = 3;  // bytes相当于切片类型
+}
+
+message RequestGoods{
+    int32 GoodsId = 1; // 使用食品id查找食品详情
+}
+
+service GoodsService {
+    rpc GetGoodsDetails(RequestGoods) returns (ResponseGoods);
+}
