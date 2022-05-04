@@ -11,6 +11,7 @@ func Run() {
 	// 注册goods 服务
 	service := micro.NewService(
 		micro.Name("goods"),
+		micro.Address(":60442"),
 	)
 
 	service.Init()
