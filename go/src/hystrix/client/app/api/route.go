@@ -17,4 +17,6 @@ func Routes(g *gin.Engine) {
 	{
 		goods.GET("/", apiV1.GetGoods)
 	}
+
+	goods.GET("/wr", apiV1.Wredis)
 }
