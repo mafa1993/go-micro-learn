@@ -19,7 +19,7 @@ func Wredis(c *gin.Context) {
 	goodsInfo, _ := rpc.GetGoodsDetails(goodsId)
 
 	//连接redis
-	rc, _ := redis.Dial("tcp", "39.106.6.99:6379")
+	rc, _ := redis.Dial("tcp", "127.0.0.1:6379")
 	defer rc.Close()
 
 	goodsInfo.Msg = "redis"
@@ -45,7 +45,7 @@ func Wredis(c *gin.Context) {
 
 // 从redis中读取数据
 func Gredis(c *gin.Context) {
-	rc, _ := redis.Dial("tcp", "39.106.6.99:6379")
+	rc, _ := redis.Dial("tcp", "127.0.0.1:6379")
 	defer rc.Close()
 
 	data, _ := rc.Do("Get", key)
