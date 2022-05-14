@@ -27,7 +27,7 @@ func (r *RequestGoods) GetGoodsDetails(ctx context.Context, req *proto.RequestGo
 	}
 
 	res.Code = 200
-	res.Msg = "成功"
+	res.Msg = "成功server2 60442"
 	res.Data = json_rlt
 
 	fmt.Println("data", res)

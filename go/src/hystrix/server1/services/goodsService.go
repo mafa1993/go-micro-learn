@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+
 type RequestGoods struct {
 }
 
@@ -32,7 +33,7 @@ func (r *RequestGoods) GetGoodsDetails(ctx context.Context, req *proto.RequestGo
 	}
 
 	res.Code = 200
-	res.Msg = "成功"
+	res.Msg = "成功server1-60441"
 	res.Data = json_rlt
 
 	fmt.Println("data", res)
