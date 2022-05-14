@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "client/app"
-	_ "client/rpc"
+	"client/rpc"
 	"client/routes"
 
 	"github.com/micro/go-micro/v2/web" // go micro 中的web包
@@ -14,8 +14,9 @@ func main() {
 	gin := routes.InitRoutes()
 
 	server := web.NewService(
-		web.Name("goods.client"),
+		web.Name("goods"),
 		web.Handler(gin),
+		web.Registry(rpc.ConsulReg),
 	)
 
 	server.Init()
